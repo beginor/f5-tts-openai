@@ -39,13 +39,11 @@ vocoder_model = load_vocoder(
     local_path=f'{models}/vocos-mel-24khz'
 )
 
-
 app = FastAPI()
 
 
 @app.post("/v1/audio/speech", tags=['audio'])
 def speech(params: SpeechModel):
-
     voice = params.voice
     ref_audio = default_ref_audio
     ref_text = read_text_file(default_ref_text)
@@ -70,8 +68,9 @@ def speech(params: SpeechModel):
         )
 
         bytes_io = convert_to_wave_io(final_wave, final_sample_rate)
+
         if params.response_format == 'mp3':
-            bytes_io = wave_to_mp3(bytes_io)
+            bytes_io = wave_to_mp3(bytes_io, final_sample_rate)
 
         return StreamingResponse(
             bytes_io,
