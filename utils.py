@@ -26,7 +26,6 @@ def convert_to_wave_io(wave_data: np.ndarray, sample_rate: int) -> BytesIO:
 
 def wave_to_mp3(wave_io: BytesIO, sample_rate: int) -> BytesIO:
     # Save the wave data to a temporary WAV file
-    # tmp_wav_path = f'tmp/{datetime.now().strftime("%Y%m%d%H%M%S")}.wav'
     tmp_wav_path = tempfile.NamedTemporaryFile(delete=False, suffix='.wav').name
     with open(tmp_wav_path, 'wb') as tmp_file:
         tmp_file.write(wave_io.getvalue())
