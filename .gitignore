@@ -1,0 +1,11 @@
+.idea
+.vscode
+
+.venv
+__pycache__
+
+assets/models
+assets/voices
+
+.DS_Store
+
