@@ -2,3 +2,4 @@ torch
 torchaudio
 f5-tts
 fastapi[standard]
+cn2an

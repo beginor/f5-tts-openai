@@ -8,6 +8,7 @@ from f5_tts.infer.utils_infer import (
 )
 from os import path
 import torch
+import cn2an
 
 from utils import (
     read_text_file,
@@ -54,6 +55,11 @@ def speech(params: SpeechModel):
 
     try:
         ref_audio, ref_text = preprocess_ref_audio_text(ref_audio, ref_text)
+
+        input = params.input.lower()
+        input = input.replace('<think>', '')
+        input = input.replace('</think>', '')
+        input = cn2an.transform(input, 'an2cn')
 
         final_wave, final_sample_rate, combined_spectrogram = infer_process(
             ref_audio=ref_audio,
