@@ -6,6 +6,7 @@ from pydantic import BaseModel
 import subprocess
 import os
 import tempfile
+import cn2an
 
 
 class SpeechModel(BaseModel):
@@ -69,3 +70,14 @@ def read_text_file(path: str) -> str:
 def read_json_file(path: str):
     with open(path, 'r', encoding='utf-8') as file:
         return json.load(file)
+
+
+def preprocess_input_text(text: str) -> str:
+    text = text.replace('<think>', '')
+    text = text.replace('</think>', '')
+    text = text.replace('#', '')
+    text = text.replace('*', '')
+    text = text.replace('-', '')
+    text = text.replace(' ', '')
+    text = cn2an.transform(text, 'an2cn')
+    return text
